@@ -2,41 +2,72 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>QiblaKaaba</title>
   <style>
     body {
       background-color: #000;
-      color: #d4af37; /* Deep gold */
+      margin: 0;
+      padding: 0;
       font-family: 'Georgia', serif;
+      color: #d4af37; /* Deep gold */
       text-align: center;
+    }
+
+    .container {
+      position: relative;
+      max-width: 1024px;
+      margin: 0 auto;
+    }
+
+    img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    .overlay-text {
+      position: absolute;
+      top: 65%; /* Adjust this % to move text vertically */
+      left: 50%;
+      transform: translate(-50%, -50%);
+      color: #d4af37;
+      font-weight: bold;
+      text-shadow: 0 0 5px #a67c00, 0 0 10px #d4af37; /* subtle glowing gold effect */
+      line-height: 1.3;
+      white-space: nowrap;
+    }
+
+    .overlay-text h1,
+    .overlay-text h2,
+    .overlay-text .cta {
       margin: 0;
       padding: 0;
     }
-    .header {
-      padding-top: 30px;
-      line-height: 1.4;
+
+    .overlay-text h1 {
+      font-size: 2.5rem;
+      margin-bottom: 0.3em;
     }
-    img {
-      max-width: 100%;
-      height: auto;
-      margin-top: 20px;
+
+    .overlay-text h2 {
+      font-size: 1.8rem;
+      margin-bottom: 0.6em;
     }
-    .cta {
-      margin-top: 20px;
-      font-size: 1.2em;
+
+    .overlay-text .cta {
+      font-size: 1.3rem;
     }
   </style>
 </head>
 <body>
-  <div class="header">
-    <h1>قبلة الكعبة<br>QiblaKaaba.com</h1>
-    <h2>قلب الأمة<br>The Heart of the Ummah</h2>
-    <div class="cta">
-      <strong>انضم إلى قائمة الأمة<br>Join the Ummah List</strong>
+  <div class="container">
+    <img src="Kaaba_detailed.png" alt="Kaaba Image" />
+    <div class="overlay-text">
+      <h1>قبلة الكعبة<br>QiblaKaaba.com</h1>
+      <h2>قلب الأمة<br>The Heart of the Ummah</h2>
+      <div class="cta">انضم إلى قائمة الأمة<br>Join the Ummah List</div>
     </div>
   </div>
-
-  <img src="Kaaba_detailed.png" alt="Kaaba Image" />
 </body>
 </html>
