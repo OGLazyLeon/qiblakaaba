@@ -200,18 +200,18 @@
     <p>الظهر – Dhuhr</p>
     <p class="en">Noon Prayer</p>
     <p>وقت: من زوال الشمس حتى يصبح ظل الشيء مثل طوله.</p>
-    <p class="en">Time: From after zenith until object's shadow equals its length.</p>
+    <p class="en">Time: From after zenith until object&#39;s shadow equals its length.</p>
     <p>يبدأ فور تجاوز الشمس لأعلى نقطة في السماء، ويستمر حتى بداية العصر.</p>
-    <p class="en">Begins right after sun's peak, ends at Asr's start.</p>
+    <p class="en">Begins right after sun&#39;s peak, ends at Asr&#39;s start.</p>
   </div>
 
   <div id="asr" class="popup">
     <p>العصر – Asr</p>
     <p class="en">Afternoon Prayer</p>
     <p>وقت: من عندما يصبح ظل الشيء كطوله (أو ضعف طوله في الحنفية) حتى قبيل الغروب.</p>
-    <p class="en">Time: From object's shadow = length (or 2x for Hanafi) until sunset.</p>
+    <p class="en">Time: From object&#39;s shadow = length (or 2x for Hanafi) until sunset.</p>
     <p>بعض الفقهاء يعتبرونه عند تساوي الظل، والحنفية عند تضاعفه.</p>
-    <p class="en">Some say when shadow equals length, Hanafi say when it's double.</p>
+    <p class="en">Some say when shadow equals length, Hanafi say when it&#39;s double.</p>
   </div>
 
   <div id="maghrib" class="popup">
@@ -246,6 +246,7 @@
       <h4 class="heading">The Heart of the Ummah</h4>
 
       <div class="cta-container">
+        <!-- Email input + CTA button as before -->
         <input type="email" class="email-input" placeholder="أدخل بريدك الإلكتروني – Enter your email" />
         <button class="cta-button" id="open-form-btn">
           <span>انضم إلى قائمة الأمة</span>
@@ -306,6 +307,14 @@
 
     // Close prayer popups or form popup if user clicks outside
     document.body.addEventListener('click', closeAllPopups);
+
+    // **New: Allow 'Enter' key inside email-input to open Google Form popup**
+    document.querySelector('.email-input').addEventListener('keydown', function(e) {
+      if (e.key === 'Enter') {
+        e.preventDefault(); 
+        document.getElementById('open-form-btn').click();
+      }
+    });
   </script>
 </body>
 </html>
