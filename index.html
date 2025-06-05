@@ -3,57 +3,309 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>QiblaKaaba</title>
+  <title>Qibla Kaaba Hero Section – Clean Version</title>
   <style>
-    body {
-      background-color: #000;
+    body, html {
       margin: 0;
       padding: 0;
-      font-family: 'Georgia', serif;
-      color: #d4af37; /* Deep gold */
+      width: 100%;
+      height: 100%;
     }
-    .container {
+    .hero {
       position: relative;
-      max-width: 1024px;
-      margin: 30px auto 0 auto;
       text-align: center;
     }
-    img {
+    .hero img {
       width: 100%;
       height: auto;
       display: block;
     }
-    .overlay-text {
+    .hero-content {
       position: absolute;
-      top: 15%; /* adjust to move text vertically */
+      top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
-      color: #b8860b; /* a richer gold, less yellow */
-      text-shadow: 0 0 6px rgba(0,0,0,0.7);
-      line-height: 1.3;
-      width: 80%;
+      display: inline-block;
+      text-align: center;
     }
-    .overlay-text h1, .overlay-text h2 {
-      margin: 0;
+    .hero-content .heading {
+      color: #000;
+      margin: 0.2em 0;
+      font-family: Arial, sans-serif;
+      line-height: 1.2;
+    }
+
+    .cta-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1em;
+      justify-content: center;
+      align-items: center;
+      margin-top: 1em;
+    }
+
+    .email-input {
+      padding: 0.75em 1em;
+      font-size: 1em;
+      font-family: Arial, sans-serif;
+      border: none;
+      border-radius: 5px;
+      max-width: 300px;
+      width: 100%;
+      box-sizing: border-box;
+    }
+
+    .cta-button {
+      background-color: rgba(0, 0, 0, 0.6);
+      color: gold;
+      border: none;
+      padding: 0.75em 1.5em;
+      font-size: 1.1em;
+      font-family: Arial, sans-serif;
+      cursor: pointer;
+      transition: color 0.3s ease, text-shadow 0.3s ease;
+    }
+
+    .cta-button span {
+      display: block;
+      line-height: 1.2;
+    }
+
+    .cta-button:hover span {
+      text-shadow: 0 0 8px rgba(255, 215, 0, 0.8);
+      color: #ffd700;
+    }
+
+    .prayer-bar {
+      display: flex;
+      justify-content: center;
+      gap: 1.5em;
+      padding: 1em;
+      position: absolute;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 1001;
+      flex-wrap: wrap;
+    }
+    .prayer {
+      color: gold;
+      cursor: pointer;
+      font-weight: bold;
+      font-family: Arial, sans-serif;
+      text-align: center;
+      background: none;
+    }
+
+    .popup {
+      display: none;
+      position: absolute;
+      top: 100px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: gold;
+      color: black;
+      padding: 1em;
+      border-radius: 10px;
+      width: 80%;
+      max-width: 500px;
+      font-family: Arial, sans-serif;
+      z-index: 1000;
+    }
+
+    .popup p {
+      margin: 0.5em 0;
+      direction: rtl;
+      text-align: right;
+    }
+
+    .popup p.en {
+      direction: ltr;
+      text-align: left;
+      margin-bottom: 1em;
+    }
+
+    /* New styles for the full form popup */
+    #form-popup {
+      display: none;
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 0 20px rgba(0,0,0,0.3);
+      width: 90%;
+      max-width: 600px;
+      height: 80vh;
+      z-index: 2000;
+      overflow: hidden;
       padding: 0;
     }
-    .cta {
-      margin-top: 10px;
+    #form-popup iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+    #form-popup .close-btn {
+      position: absolute;
+      top: 10px;
+      right: 15px;
+      background: #000;
+      color: gold;
+      border: none;
+      font-size: 1.5em;
+      cursor: pointer;
+      border-radius: 50%;
+      width: 35px;
+      height: 35px;
+      line-height: 35px;
+      text-align: center;
       font-weight: bold;
-      font-size: 1.2em;
+      z-index: 2100;
+    }
+
+    @media (max-width: 600px) {
+      .cta-container {
+        flex-direction: column;
+      }
+      .email-input {
+        max-width: 100%;
+      }
+      .email-input::placeholder {
+        font-size: 0.9em;
+      }
     }
   </style>
 </head>
 <body>
-  <div class="container">
-    <img src="Kaaba_detailed.png" alt="Kaaba Image" />
-    <div class="overlay-text">
-      <h1>قبلة الكعبة<br>QiblaKaaba.com</h1>
-      <h2>قلب الأمة<br>The Heart of the Ummah</h2>
-      <div class="cta">
-        انضم إلى قائمة الأمة<br>Join the Ummah List
+  <div class="prayer-bar">
+    <div class="prayer" onclick="togglePopup('fajr')">الفجر<br>Fajr</div>
+    <div class="prayer" onclick="togglePopup('dhuhr')">الظهر<br>Dhuhr</div>
+    <div class="prayer" onclick="togglePopup('asr')">العصر<br>Asr</div>
+    <div class="prayer" onclick="togglePopup('maghrib')">المغرب<br>Maghrib</div>
+    <div class="prayer" onclick="togglePopup('isha')">العشاء<br>Isha</div>
+  </div>
+
+  <div id="fajr" class="popup">
+    <p>الفجر – Fajr</p>
+    <p class="en">Dawn Prayer</p>
+    <p>وقت: من بزوغ الفجر الصادق حتى قبل شروق الشمس.</p>
+    <p class="en">Time: From true dawn until just before sunrise.</p>
+    <p>يبدأ عندما يظهر الضوء الأول في الأفق الشرقي، وينتهي عندما تبدأ الشمس في الشروق.</p>
+    <p class="en">Begins when eastern horizon lightens, ends when sun rises.</p>
+  </div>
+
+  <div id="dhuhr" class="popup">
+    <p>الظهر – Dhuhr</p>
+    <p class="en">Noon Prayer</p>
+    <p>وقت: من زوال الشمس حتى يصبح ظل الشيء مثل طوله.</p>
+    <p class="en">Time: From after zenith until object's shadow equals its length.</p>
+    <p>يبدأ فور تجاوز الشمس لأعلى نقطة في السماء، ويستمر حتى بداية العصر.</p>
+    <p class="en">Begins right after sun's peak, ends at Asr's start.</p>
+  </div>
+
+  <div id="asr" class="popup">
+    <p>العصر – Asr</p>
+    <p class="en">Afternoon Prayer</p>
+    <p>وقت: من عندما يصبح ظل الشيء كطوله (أو ضعف طوله في الحنفية) حتى قبيل الغروب.</p>
+    <p class="en">Time: From object's shadow = length (or 2x for Hanafi) until sunset.</p>
+    <p>بعض الفقهاء يعتبرونه عند تساوي الظل، والحنفية عند تضاعفه.</p>
+    <p class="en">Some say when shadow equals length, Hanafi say when it's double.</p>
+  </div>
+
+  <div id="maghrib" class="popup">
+    <p>المغرب – Maghrib</p>
+    <p class="en">Sunset Prayer</p>
+    <p>وقت: من غروب الشمس حتى اختفاء الشفق الأحمر.</p>
+    <p class="en">Time: From sunset until red twilight disappears.</p>
+    <p>يبدأ مباشرة بعد الغروب، وينتهي بزوال الحمرة من السماء.</p>
+    <p class="en">Begins right after sunset, ends when red glow fades.</p>
+  </div>
+
+  <div id="isha" class="popup">
+    <p>العشاء – Isha</p>
+    <p class="en">Night Prayer</p>
+    <p>وقت: من زوال الشفق حتى منتصف الليل أو الفجر.</p>
+    <p class="en">Time: From end of twilight until midnight or dawn.</p>
+    <p>يبدأ عند حلول الظلام الكامل ويمكن تأخيره حتى الفجر في حالات معينة.</p>
+    <p class="en">Begins when darkness sets in; can be delayed until dawn.</p>
+  </div>
+
+  <section class="hero" onclick="closeAllPopups(event)">
+    <picture>
+      <source media="(min-width: 1280px)" srcset="kaaba-door-1920.jpg" />
+      <source media="(min-width: 800px)" srcset="kaaba-door-1280.jpg" />
+      <img src="kaaba-door-800.jpg" alt="Kaaba Door" />
+    </picture>
+
+    <div class="hero-content">
+      <h1 class="heading">قبلة الكعبة</h1>
+      <h2 class="heading">QiblaKaaba.com</h2>
+      <h3 class="heading">قلب الأمة</h3>
+      <h4 class="heading">The Heart of the Ummah</h4>
+
+      <div class="cta-container">
+        <input type="email" class="email-input" placeholder="أدخل بريدك الإلكتروني – Enter your email" />
+        <button class="cta-button" id="open-form-btn">
+          <span>انضم إلى قائمة الأمة</span>
+          <span>Join the Ummah List</span>
+        </button>
       </div>
     </div>
+  </section>
+
+  <!-- Popup for the full Google Form -->
+  <div id="form-popup">
+    <button class="close-btn" aria-label="Close form popup">&times;</button>
+    <iframe
+      src="https://docs.google.com/forms/d/e/1FAIpQLSdGw6ZGGsKYk-LwEnX1rdqtL5M1FzJbp2msEFsKuv4WTYV2Ww/viewform?embedded=true"
+      frameborder="0"
+      marginheight="0"
+      marginwidth="0"
+      loading="lazy"
+    >Loading…</iframe>
   </div>
+
+  <script>
+    function togglePopup(id) {
+      closeAllPopups();
+      const popup = document.getElementById(id);
+      if (popup) popup.style.display = 'block';
+    }
+
+    function closeAllPopups(event) {
+      // If clicked on a prayer button, don't close popups
+      if (event?.target?.classList?.contains('prayer')) return;
+
+      // Close all prayer popups
+      document.querySelectorAll('.popup').forEach(p => p.style.display = 'none');
+
+      // Also close form popup if click outside it
+      const formPopup = document.getElementById('form-popup');
+      if (formPopup && event && !formPopup.contains(event.target) && event.target.id !== 'open-form-btn') {
+        formPopup.style.display = 'none';
+      }
+    }
+
+    // Show the form popup on CTA button click
+    document.getElementById('open-form-btn').addEventListener('click', function(e) {
+      e.stopPropagation(); // Prevent event bubbling to body click handler
+      document.getElementById('form-popup').style.display = 'block';
+    });
+
+    // Close form popup on clicking the close button
+    document.querySelector('#form-popup .close-btn').addEventListener('click', function() {
+      document.getElementById('form-popup').style.display = 'none';
+    });
+
+    // Prevent clicks inside form popup from closing it
+    document.getElementById('form-popup').addEventListener('click', function(e) {
+      e.stopPropagation();
+    });
+
+    // Close prayer popups or form popup if user clicks outside
+    document.body.addEventListener('click', closeAllPopups);
+  </script>
 </body>
 </html>
