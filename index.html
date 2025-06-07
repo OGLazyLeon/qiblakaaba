@@ -35,47 +35,6 @@
       line-height: 1.2;
     }
 
-    .cta-container {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 1em;
-      justify-content: center;
-      align-items: center;
-      margin-top: 1em;
-    }
-
-    .email-input {
-      padding: 0.75em 1em;
-      font-size: 1em;
-      font-family: Arial, sans-serif;
-      border: none;
-      border-radius: 5px;
-      max-width: 300px;
-      width: 100%;
-      box-sizing: border-box;
-    }
-
-    .cta-button {
-      background-color: rgba(0, 0, 0, 0.6);
-      color: gold;
-      border: none;
-      padding: 0.75em 1.5em;
-      font-size: 1.1em;
-      font-family: Arial, sans-serif;
-      cursor: pointer;
-      transition: color 0.3s ease, text-shadow 0.3s ease;
-    }
-
-    .cta-button span {
-      display: block;
-      line-height: 1.2;
-    }
-
-    .cta-button:hover span {
-      text-shadow: 0 0 8px rgba(255, 215, 0, 0.8);
-      color: #ffd700;
-    }
-
     .prayer-bar {
       display: flex;
       justify-content: center;
@@ -123,58 +82,6 @@
       direction: ltr;
       text-align: left;
       margin-bottom: 1em;
-    }
-
-    /* New styles for the full form popup */
-    #form-popup {
-      display: none;
-      position: fixed;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      background: white;
-      border-radius: 12px;
-      box-shadow: 0 0 20px rgba(0,0,0,0.3);
-      width: 90%;
-      max-width: 600px;
-      height: 80vh;
-      z-index: 2000;
-      overflow: hidden;
-      padding: 0;
-    }
-    #form-popup iframe {
-      width: 100%;
-      height: 100%;
-      border: none;
-    }
-    #form-popup .close-btn {
-      position: absolute;
-      top: 10px;
-      right: 15px;
-      background: #000;
-      color: gold;
-      border: none;
-      font-size: 1.5em;
-      cursor: pointer;
-      border-radius: 50%;
-      width: 35px;
-      height: 35px;
-      line-height: 35px;
-      text-align: center;
-      font-weight: bold;
-      z-index: 2100;
-    }
-
-    @media (max-width: 600px) {
-      .cta-container {
-        flex-direction: column;
-      }
-      .email-input {
-        max-width: 100%;
-      }
-      .email-input::placeholder {
-        font-size: 0.9em;
-      }
     }
   </style>
 </head>
@@ -244,29 +151,8 @@
       <h2 class="heading">QiblaKaaba.com</h2>
       <h3 class="heading">قلب الأمة</h3>
       <h4 class="heading">The Heart of the Ummah</h4>
-
-      <div class="cta-container">
-        <!-- Email input + CTA button as before -->
-        <input type="email" class="email-input" placeholder="أدخل بريدك الإلكتروني – Enter your email" />
-        <button class="cta-button" id="open-form-btn">
-          <span>انضم إلى قائمة الأمة</span>
-          <span>Join the Ummah List</span>
-        </button>
-      </div>
     </div>
   </section>
-
-  <!-- Popup for the full Google Form -->
-  <div id="form-popup">
-    <button class="close-btn" aria-label="Close form popup">&times;</button>
-    <iframe
-      src="https://docs.google.com/forms/d/e/1FAIpQLSdGw6ZGGsKYk-LwEnX1rdqtL5M1FzJbp2msEFsKuv4WTYV2Ww/viewform?embedded=true"
-      frameborder="0"
-      marginheight="0"
-      marginwidth="0"
-      loading="lazy"
-    >Loading…</iframe>
-  </div>
 
   <script>
     function togglePopup(id) {
@@ -276,45 +162,11 @@
     }
 
     function closeAllPopups(event) {
-      // If clicked on a prayer button, don't close popups
       if (event?.target?.classList?.contains('prayer')) return;
-
-      // Close all prayer popups
       document.querySelectorAll('.popup').forEach(p => p.style.display = 'none');
-
-      // Also close form popup if click outside it
-      const formPopup = document.getElementById('form-popup');
-      if (formPopup && event && !formPopup.contains(event.target) && event.target.id !== 'open-form-btn') {
-        formPopup.style.display = 'none';
-      }
     }
 
-    // Show the form popup on CTA button click
-    document.getElementById('open-form-btn').addEventListener('click', function(e) {
-      e.stopPropagation(); // Prevent event bubbling to body click handler
-      document.getElementById('form-popup').style.display = 'block';
-    });
-
-    // Close form popup on clicking the close button
-    document.querySelector('#form-popup .close-btn').addEventListener('click', function() {
-      document.getElementById('form-popup').style.display = 'none';
-    });
-
-    // Prevent clicks inside form popup from closing it
-    document.getElementById('form-popup').addEventListener('click', function(e) {
-      e.stopPropagation();
-    });
-
-    // Close prayer popups or form popup if user clicks outside
     document.body.addEventListener('click', closeAllPopups);
-
-    // **New: Allow 'Enter' key inside email-input to open Google Form popup**
-    document.querySelector('.email-input').addEventListener('keydown', function(e) {
-      if (e.key === 'Enter') {
-        e.preventDefault(); 
-        document.getElementById('open-form-btn').click();
-      }
-    });
   </script>
 </body>
 </html>
